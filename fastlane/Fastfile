@@ -47,3 +47,9 @@ lane :create do
     apk: apk
   )
 end
+
+lane :get_rights do
+  get_managed_play_store_publishing_rights(
+    json_key: ENV['KEYFILE_PATH']
+  )
+  end
