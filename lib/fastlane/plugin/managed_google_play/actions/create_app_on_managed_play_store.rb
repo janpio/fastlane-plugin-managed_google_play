@@ -14,13 +14,13 @@ module Fastlane
         FastlaneCore::PrintTable.print_values(
           config: params, 
           mask_keys: [:json_key_data], 
-          title: "Summary for CreateAppOnManagedPlayStoreAction"
+          title: "Summary for CreateAppOnManagedPlayStoreAction" # TODO
         )
         
         require "google/apis/playcustomapp_v1"
 
         # Auth Info
-        @keyfile = params[:json_key]
+        @keyfile = params[:json_key] # TODO json_key_data as alternative
         @developer_account = params[:developer_account_id]
 
         # App Info
@@ -193,11 +193,7 @@ module Fastlane
       end
 
       def self.is_supported?(platform)
-        # Adjust this if your plugin only works for a particular platform (iOS vs. Android, for example)
-        # See: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
-        #
-        # [:ios, :mac, :android].include?(platform)
-        true
+        [:android].include?(platform)
       end
     end
   end
