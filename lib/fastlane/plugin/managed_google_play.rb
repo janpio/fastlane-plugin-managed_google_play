@@ -15,7 +15,8 @@ Fastlane::ManagedGooglePlay.all_classes.each do |current|
   require current
 end
 
-# https://stackoverflow.com/a/1274703/252627
+# https://support.google.com/googleplay/android-developer/answer/3125566?hl=en => Add your own text translations & localized graphic assets => See available languages => replace `-` with `_`
+# %w => https://stackoverflow.com/a/1274703/252627
 class AvailableLanguages
   def self.all_languages
     %w[
