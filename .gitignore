@@ -13,3 +13,4 @@ test-results
 
 .env*
 !.env.example
+fastlane/generated/
