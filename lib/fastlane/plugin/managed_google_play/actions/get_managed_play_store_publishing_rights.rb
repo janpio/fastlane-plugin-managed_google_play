@@ -27,8 +27,11 @@ module Fastlane
         uri = "https://play.google.com/apps/publish/delegatePrivateApp?service_account=#{credentials['client_email']}&continueUrl=#{URI.escape(callback_uri)}"
 
         UI.message("To obtain publishing rights for custom apps on Managed Play Store, open the following URL and log in:")
-        UI.message(uri)
-        UI.message("After successful login you will be redirected to a page with further instructions.")
+        UI.message("")
+        UI.important(uri)
+        UI.message("([Cmd/Ctrl] + [Left click] lets you open this URL in many consoles/terminals/shells)")
+        UI.message("")
+        UI.message("After successful login you will be redirected to a page which outputs some information that is required for usage of the `create_app_on_managed_play_store` action.")
       end
 
       def self.description
