@@ -5,7 +5,6 @@ module Fastlane
   module Actions
     class GetManagedPlayStorePublishingRightsAction < Action
       def self.run(params)
-
         unless params[:json_key] || params[:json_key_data]
           UI.important("To not be asked about this value, you can specify it using 'json_key'")
           params[:json_key] = UI.input("The service account json file used to authenticate with Google: ")
@@ -17,12 +16,12 @@ module Fastlane
           title: "Summary for GetManagedPlayStorePublishingRights" # TODO
         )
 
-        @keyfile = params[:json_key] # TODO json_key_data as alternative
+        @keyfile = params[:json_key] # TODO: json_key_data as alternative
 
         # login
         credentials = JSON.parse(File.open(@keyfile, 'rb').read)
-        #puts 'credentials: '+credentials.inspect
-        #puts 'email: ' + credentials['client_email']
+        # puts 'credentials: '+credentials.inspect
+        # puts 'email: ' + credentials['client_email']
 
         callback_uri = 'https://janpio.github.io/fastlane-plugin-managed_google_play/callback.html'
         uri = "https://play.google.com/apps/publish/delegatePrivateApp?service_account=#{credentials['client_email']}&continueUrl=#{URI.escape(callback_uri)}"
@@ -79,11 +78,11 @@ module Fastlane
             verify_block: proc do |value|
               begin
                 JSON.parse(value)
-                rescue JSON::ParserError
+              rescue JSON::ParserError
                 UI.user_error!("Could not parse service account json: JSON::ParseError")
               end
             end
-          ),
+          )
 
         ]
       end

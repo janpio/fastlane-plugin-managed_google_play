@@ -5,7 +5,6 @@ module Fastlane
   module Actions
     class ManagedGooglePlayAction < Action
       def self.run(params)
-        
         require "google/apis/playcustomapp_v1"
 
         # Auth Info
@@ -21,11 +20,11 @@ module Fastlane
         scope = 'https://www.googleapis.com/auth/androidpublisher'
         credentials = JSON.parse(File.open(@keyfile, 'rb').read)
         auth_client = Signet::OAuth2::Client.new(
-            :token_credential_uri => 'https://oauth2.googleapis.com/token',
-            :audience => 'https://oauth2.googleapis.com/token',
-            :scope => scope,
-            :issuer => credentials['client_id'],
-            :signing_key => OpenSSL::PKey::RSA.new(credentials['private_key'], nil),
+          token_credential_uri: 'https://oauth2.googleapis.com/token',
+          audience: 'https://oauth2.googleapis.com/token',
+          scope: scope,
+          issuer: credentials['client_id'],
+          signing_key: OpenSSL::PKey::RSA.new(credentials['private_key'], nil)
         )
         UI.message('auth_client: ' + auth_client.inspect)
         auth_client.fetch_access_token!
@@ -36,26 +35,25 @@ module Fastlane
         UI.message('play_custom_apps with auth: ' + play_custom_apps.inspect)
 
         # app
-        custom_app = Google::Apis::PlaycustomappV1::CustomApp.new title: @app_title, language_code: @language_code
+        custom_app = Google::Apis::PlaycustomappV1::CustomApp.new(title: @app_title, language_code: @language_code)
         UI.message('custom_app: ' + custom_app.inspect)
 
         # create app
         returned = play_custom_apps.create_account_custom_app(
           @developer_account,
           custom_app,
-          upload_source: nil #,
-          #upload_source: @apk_path,
+          upload_source: nil # ,
+          # upload_source: @apk_path,
         ) do |created_app, error|
-          unless error.nil?
-            puts "Error: #{error}"
-            UI.error(error.inspect)
-          else
-            puts "Success: #{created_app}."
+          if error.nil?
+            puts("Success: #{created_app}.")
             UI.success(created_app)
+          else
+            puts("Error: #{error}")
+            UI.error(error.inspect)
           end
         end
         UI.message('returned: ' + returned.inspect)
-
       end
 
       def self.description

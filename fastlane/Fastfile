@@ -6,22 +6,21 @@ lane :create do
   # app template to use
   template_path = 'android_app_template'
   template_package_name = 'tools.fastlane.managed_play'
-  
+
   # generate app and package_name
-  foo = rand 1000..9999
+  foo = rand(1000..9999)
   foo = foo.to_s
-  package_name = 'org.example.f'+foo
-  project_dir = 'f'+foo
+  package_name = 'org.example.f' + foo
+  project_dir = 'f' + foo
   app_title = 'Foo ' + foo
   language = 'en_US'
 
-
-  # rename android project  
+  # rename android project
   FileUtils.copy_entry(template_path, 'generated/' + project_dir) # copy template to new location
-  rename_android_package(                                                                                                                                                                                                                                                              
-    path: 'fastlane/generated/' + project_dir,                                                                                                                                                                                                                                                                        
-    package_name: template_package_name,                                                                                                                                                                                                                                        
-    new_package_name: package_name                                                                                                                                                                                                                                  
+  rename_android_package(
+    path: 'fastlane/generated/' + project_dir,
+    package_name: template_package_name,
+    new_package_name: package_name
   )
 
   # build android project
@@ -33,7 +32,7 @@ lane :create do
       'android.injected.signing.store.file' => ENV['KEYSTORE_PATH'],
       'android.injected.signing.store.password' => ENV['KEYSTORE_PASSWORD'],
       'android.injected.signing.key.alias' => ENV['KEYSTORE_ALIAS'],
-      'android.injected.signing.key.password' => ENV['KEYSTORE_PASSWORD'],
+      'android.injected.signing.key.password' => ENV['KEYSTORE_PASSWORD']
     }
   )
   apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
@@ -52,4 +51,4 @@ lane :get_rights do
   get_managed_play_store_publishing_rights(
     json_key: ENV['KEYFILE_PATH']
   )
-  end
+end
