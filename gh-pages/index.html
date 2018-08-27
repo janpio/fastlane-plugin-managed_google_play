@@ -1,0 +1,64 @@
+<style>
+body {
+  padding:50px;
+  margin:auto;
+  max-width:600px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p, li {
+  line-height: 160%;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+}
+</style>
+
+<body>
+
+<h1>OAuth callback page for "Obtain private app publishing rights"</h1>
+
+<p>
+  This page is the callback URL for the OAuth process initiated by using the <a href="https://github.com/janpio/fastlane-plugin-managed_google_play">Fastlane Plugin for Manage Google Play</a> action <a href="https://github.com/janpio/fastlane-plugin-managed_google_play#get_managed_play_store_publishing_rights"><code>get_managed_play_store_publishing_rights</code></a>. The general process is described in <a href="https://developers.google.com/android/work/play/custom-app-api/get-started#obtain_private_app_publishing_rights">"Get started with custom app publishing > Obtain private app publishing rights"</a>
+</p>
+
+<h2>Result</h2>
+
+<ul>
+    <li>Developer Account ID: <span id="id">(unknown)</span></li>
+    <li>Developer Account Link: <span id="link">(unknown)</span></li>
+  </ul>
+
+<script>
+// https://stackoverflow.com/a/12151322/252627
+console.log(location.search);
+let params = new URLSearchParams(location.search);
+console.log(params);
+if(params.get('developerAccount')) {
+  document.getElementById("id").innerHTML = params.get('developerAccount');
+}
+if(params.get('developerAccountLink')) {
+  document.getElementById("link").innerHTML = "<a href='" + params.get('developerAccountLink') + "'>" + params.get('developerAccountLink') + "</a>";
+}
+</script>
+
+<p>
+  The Developer Account ID is required for further usage as a parameter <code>developer_account_id</code> of the plugin action <a href="https://github.com/janpio/fastlane-plugin-managed_google_play#create_app_on_managed_play_store"><code>create_app_on_managed_play_store</code></a>.
+</p>
+
+<hr />
+
+<p>
+  Note that the "Developer Account ID" currently can simply be obtained from the URL you end up on when logging in to the Google Play Console as well - which is returned as "Developer Account Link" here. If you ever forget or loose it, just look there.
+</p>
+
+<hr />
+
+<p>
+  Attention: The data is only output for you, not captured or logged in any way. The sourcecode for this plain HTML page is at <a href="...">...</a>.
+</p>
+
+</body>
