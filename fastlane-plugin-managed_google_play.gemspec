@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'piotrowski+github@gmail.com'
 
   spec.summary       = 'Create Managed Google Play Apps'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-managed_google_play"
+  spec.homepage      = "https://github.com/janpio/fastlane-plugin-managed_google_play"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
