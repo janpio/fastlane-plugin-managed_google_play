@@ -58,6 +58,7 @@ module Fastlane
           if error.nil?
             puts("Success: #{created_app}.")
             UI.success(created_app)
+            UI.success(created_app.inspect)
           else
             puts("Error: #{error}")
             UI.error(error.inspect)
